@@ -1,0 +1,26 @@
+---
+CreateMemory:
+  handler: functions/entries/handler.CreateMemory
+  role: MemoriesLambdaRole
+  events:
+    - http:
+        method: post
+        path: user/{user}/entry
+        request:
+          schema:
+            application/json: ${file(functions/entries/models/CreateMemory.json)}
+          parameters:
+            paths:
+              user: true
+
+GetUserMemories:
+  handler: functions/entries/handler.GetUserMemories
+  role: MemoriesLambdaRole
+  events:
+    - http:
+        method: get
+        path: user/{user}/entries
+        request:
+          parameters:
+            paths:
+              user: true

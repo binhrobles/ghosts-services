@@ -1,0 +1,19 @@
+# package
+node_modules
+jspm_packages
+
+# Serverless
+.serverless
+.dynamodb
+
+# Webpack
+.webpack
+.build
+
+# Terraform
+*.tfstate
+*.tfstate*
+.terraform
+
+.env
+.eslintcache
