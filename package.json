@@ -5,7 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "test": "echo \"No tests specified\" && exit 0",
-    "lint": "eslint '*/**/*.{js,ts}' --fix; terraform fmt --recursive infrastructure",
+    "lint": "eslint '*/**/*.{js,ts}' --fix",
     "up": "docker-compose up -d",
     "start": "serverless offline",
     "provision": "cd infrastructure/local && terraform apply --auto-approve",

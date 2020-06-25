@@ -1,7 +1,9 @@
 import DynamoDB from 'aws-sdk/clients/dynamodb';
 import { mapCreateEntryToItem } from './database_client_mappings';
+import { CreateEntryInput } from '../types.d';
 
-const TableName = process.env.DDB_TABLE;
+// TODO: move into CreateClient
+const TableName = process.env.IS_OFFLINE ? 'Entries' : process.env.DDB_TABLE;
 
 export function CreateClient(): DynamoDB.DocumentClient {
   const config = process.env.IS_OFFLINE
@@ -29,29 +31,4 @@ export async function CreateEntry(
     })
     .promise();
   console.log(JSON.stringify(result.ConsumedCapacity));
-}
-
-export async function GetNamespaceEntries(
-  client: DynamoDB.DocumentClient,
-  user: string
-): Promise<Array<any>> {
-  // only requests fields:
-  const projection = 'Prompt, WordBank, CreateTime';
-  const result = await client
-    .query({
-      TableName,
-      ExpressionAttributeNames: {
-        // because `User` is a DDB reserved word
-        '#user': 'User',
-      },
-      ExpressionAttributeValues: {
-        ':user': user,
-      },
-      KeyConditionExpression: '#user = :user',
-      ProjectionExpression: projection,
-    })
-    .promise();
-  console.log(JSON.stringify(result.ConsumedCapacity));
-
-  return result.Items;
 }

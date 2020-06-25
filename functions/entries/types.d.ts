@@ -1,3 +1,5 @@
+import { TTLOptions } from './enums';
+
 interface CreateEntryInput {
   text: string;
   description: string;
@@ -5,7 +7,7 @@ interface CreateEntryInput {
     lat: number;
     lng: number;
   };
-  ttl: number;
+  ttl: TTLOptions;
   date: number; // optional
   submitter: string; // optional
   tags: Array<string>; // optional

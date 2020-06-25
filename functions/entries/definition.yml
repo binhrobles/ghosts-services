@@ -15,18 +15,3 @@ CreateEntry:
           parameters:
             paths:
               namespace: true
-
-GetNamespaceEntries:
-  handler: functions/entries/handler.GetNamespaceEntriesHandler
-  role: EntriesLambdaRole
-  environment:
-    DDB_TABLE:
-      Ref: EntriesTable
-  events:
-    - http:
-        method: get
-        path: namespace/{namespace}/entries
-        request:
-          parameters:
-            paths:
-              namespace: true
