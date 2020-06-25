@@ -11,8 +11,6 @@
 
 - For local dev, testing, and quick feedback
 - `yarn start` should raise localstack docker container and start the API in offline mode
-- `yarn provision` will PUT the API key needed for the translate API in the localstack SSM
-  - TODO: preserve this in state
 - Lambdas are available behind `localhost:4000/dev`
 
 ### Personal Stack

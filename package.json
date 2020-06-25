@@ -15,9 +15,11 @@
     "destroy:personal": "serverless remove -s $(whoami)"
   },
   "dependencies": {
+    "@types/shortid": "^0.0.29",
     "aws-sdk": "^2.699.0",
     "axios": "^0.19.2",
     "serverless-offline": "^6.4.0",
+    "shortid": "^2.2.15",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {

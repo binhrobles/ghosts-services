@@ -33,7 +33,9 @@ export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
 };
 
 // TODO: will this be necessary if we have elasticsearch?
-export const GetNamespaceEntriesHandler: APIGatewayProxyHandler = async (event) => {
+export const GetNamespaceEntriesHandler: APIGatewayProxyHandler = async (
+  event
+) => {
   try {
     const namespace = event.pathParameters.namespace;
     const entries = await GetNamespaceEntries(ddbClient, namespace);

@@ -1,10 +1,14 @@
 import DynamoDB from 'aws-sdk/clients/dynamodb';
+import shortid from 'shortid';
 
 export const mapCreateEntryToItem = (
   entry: CreateEntryInput
 ): DynamoDB.DocumentClient.PutItemInputAttributeMap => {
+  const _id = shortid.generate();
   const now = Date.now();
+
   return {
+    _id,
     CreateTime: now,
     Text: entry.text,
     Description: entry.description,

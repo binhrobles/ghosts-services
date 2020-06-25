@@ -2,6 +2,9 @@
 CreateEntry:
   handler: functions/entries/handler.CreateEntryHandler
   role: EntriesLambdaRole
+  environment:
+    DDB_TABLE:
+      Ref: EntriesTable
   events:
     - http:
         method: post
@@ -16,6 +19,9 @@ CreateEntry:
 GetNamespaceEntries:
   handler: functions/entries/handler.GetNamespaceEntriesHandler
   role: EntriesLambdaRole
+  environment:
+    DDB_TABLE:
+      Ref: EntriesTable
   events:
     - http:
         method: get

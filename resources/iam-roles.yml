@@ -16,7 +16,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSLambdaExecute
 
-  MemoriesLambdaRole:
+  EntriesLambdaRole:
     Type: 'AWS::IAM::Role'
     Properties:
       AssumeRolePolicyDocument:
@@ -32,7 +32,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSLambdaExecute
       Policies:
-        - PolicyName: 'AllowMemoriesTableAccess'
+        - PolicyName: 'AllowEntriesTableAccess'
           PolicyDocument: 
             Version: '2012-10-17'
             Statement: 
@@ -42,4 +42,5 @@ Resources:
                   - 'dynamodb:Delete*'
                   - 'dynamodb:Update*'
                   - 'dynamodb:Put*'
-                Resource: 'arn:aws:dynamodb:*:*:table/Memories'
+                Resource:
+                  Fn::GetAtt: [ EntriesTable, Arn ]

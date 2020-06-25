@@ -35,7 +35,6 @@ custom:
 plugins:
   - serverless-webpack
   - serverless-localstack
-  - serverless-domain-manager
   - serverless-offline
 
 provider:
@@ -55,3 +54,4 @@ functions:
 
 resources:
   - ${file(./resources/iam-roles.yml)}
+  - ${file(./resources/dynamo.yml)}

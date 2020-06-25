@@ -1,0 +1,14 @@
+---
+Resources:
+  EntriesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema: 
+        - AttributeName: "_id"
+          KeyType: "HASH"
+      AttributeDefinitions:
+        - AttributeName: "_id"
+          AttributeType: "S"
+      ProvisionedThroughput: 
+        ReadCapacityUnits: "2"
+        WriteCapacityUnits: "2"

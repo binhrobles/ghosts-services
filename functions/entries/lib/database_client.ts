@@ -1,12 +1,17 @@
 import DynamoDB from 'aws-sdk/clients/dynamodb';
 import { mapCreateEntryToItem } from './database_client_mappings';
 
+const TableName = process.env.DDB_TABLE;
+
 export function CreateClient(): DynamoDB.DocumentClient {
   const config = process.env.IS_OFFLINE
     ? {
         endpoint: 'http://localhost:4566',
       }
     : {};
+  console.log(
+    JSON.stringify({ event: 'Client created', table: TableName, config })
+  );
   return new DynamoDB.DocumentClient(config);
 }
 
@@ -15,11 +20,11 @@ export async function CreateEntry(
   entry: CreateEntryInput,
   namespace: string
 ): Promise<void> {
-  const Item = { ...mapCreateEntryToItem(entry), namespace };
+  const Item = { namespace, ...mapCreateEntryToItem(entry) };
 
   const result = await client
     .put({
-      TableName: 'Entries',
+      TableName,
       Item,
     })
     .promise();
@@ -34,7 +39,7 @@ export async function GetNamespaceEntries(
   const projection = 'Prompt, WordBank, CreateTime';
   const result = await client
     .query({
-      TableName: 'Entries',
+      TableName,
       ExpressionAttributeNames: {
         // because `User` is a DDB reserved word
         '#user': 'User',
