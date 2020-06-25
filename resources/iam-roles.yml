@@ -1,6 +1,6 @@
 ---
 Resources:
-  BasicRole:
+  QueryLambdaRole:
     Type: 'AWS::IAM::Role'
     Properties:
       AssumeRolePolicyDocument:
