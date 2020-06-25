@@ -1,0 +1,26 @@
+---
+CreateEntry:
+  handler: functions/entries/handler.CreateEntryHandler
+  role: EntriesLambdaRole
+  events:
+    - http:
+        method: post
+        path: namespace/{namespace}/entry
+        request:
+          schema:
+            application/json: ${file(functions/entries/models/CreateEntry.json)}
+          parameters:
+            paths:
+              namespace: true
+
+GetNamespaceEntries:
+  handler: functions/entries/handler.GetNamespaceEntriesHandler
+  role: EntriesLambdaRole
+  events:
+    - http:
+        method: get
+        path: namespace/{namespace}/entries
+        request:
+          parameters:
+            paths:
+              namespace: true

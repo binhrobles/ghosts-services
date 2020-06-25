@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "entries_table" {
-  name = "Memories"
+  name = "Entries"
 
   /* taking advantage of provisioned free-tier */
   billing_mode   = "PROVISIONED"

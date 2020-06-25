@@ -1,18 +1,23 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
-import DBClient from './lib/database_client';
+import {
+  CreateClient,
+  CreateEntry,
+  GetNamespaceEntries,
+} from './lib/database_client';
+
+const ddbClient = CreateClient();
 
 const handleError = (e: Error) => {
   console.error(JSON.stringify(e, null, 2));
 };
 
-export const CreateMemory: APIGatewayProxyHandler = async (event) => {
+export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
   try {
+    const namespace = event.pathParameters.namespace;
     const entry = JSON.parse(event.body);
-    await DBClient.CreateMemory({
-      ...entry,
-      user: event.pathParameters.user,
-    });
+
+    await CreateEntry(ddbClient, entry, namespace);
 
     return {
       statusCode: 200,
@@ -27,11 +32,11 @@ export const CreateMemory: APIGatewayProxyHandler = async (event) => {
   }
 };
 
-export const GetUserMemories: APIGatewayProxyHandler = async (event) => {
+// TODO: will this be necessary if we have elasticsearch?
+export const GetNamespaceEntriesHandler: APIGatewayProxyHandler = async (event) => {
   try {
-    const entries = await DBClient.GetUserMemories({
-      user: event.pathParameters.user,
-    });
+    const namespace = event.pathParameters.namespace;
+    const entries = await GetNamespaceEntries(ddbClient, namespace);
 
     return {
       statusCode: 200,

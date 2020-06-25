@@ -10,6 +10,7 @@
     "start": "serverless offline",
     "provision": "cd infrastructure/local && terraform apply --auto-approve",
     "stop": "docker-compose stop",
+    "down": "docker-compose down",
     "deploy:personal": "serverless deploy -s $(whoami)",
     "destroy:personal": "serverless remove -s $(whoami)"
   },
