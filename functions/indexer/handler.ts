@@ -14,7 +14,7 @@ export const IndexRecords: DynamoDBStreamHandler = async (
     event.Records.map(async (record) => {
       const params = {
         id: record.dynamodb.Keys.id.S,
-        index: record.dynamodb.NewImage.Namespace.S || 'public', // TODO: read if n indices is smart
+        index: `n-${record.dynamodb.NewImage.Namespace.S}`,
         type: '_doc',
       };
       console.log(JSON.stringify(params, null, 2));
@@ -27,8 +27,8 @@ export const IndexRecords: DynamoDBStreamHandler = async (
           const recordWithGeo = {
             ...record.dynamodb.NewImage,
             Location: [
-              record.dynamodb.NewImage.Location.M.lng.N,
-              record.dynamodb.NewImage.Location.M.lat.N,
+              parseFloat(record.dynamodb.NewImage.Location.M.lng.N),
+              parseFloat(record.dynamodb.NewImage.Location.M.lat.N),
             ],
           };
           console.log(JSON.stringify(recordWithGeo, null, 2));
