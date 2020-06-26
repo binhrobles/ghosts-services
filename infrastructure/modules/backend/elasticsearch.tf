@@ -31,7 +31,7 @@ resource "aws_elasticsearch_domain" "es_domain" {
   elasticsearch_version = "7.4"
 
   cluster_config {
-    instance_type  = "t2.small.elasticsearch"
+    instance_type  = "t2.micro.elasticsearch"
     instance_count = 1
   }
 
