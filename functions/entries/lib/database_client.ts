@@ -20,9 +20,9 @@ export function CreateClient(): DynamoDB.DocumentClient {
 export async function CreateEntry(
   client: DynamoDB.DocumentClient,
   entry: CreateEntryInput,
-  namespace: string
+  Namespace: string
 ): Promise<void> {
-  const Item = { namespace, ...mapCreateEntryToItem(entry) };
+  const Item = { Namespace, ...mapCreateEntryToItem(entry) };
 
   const result = await client
     .put({

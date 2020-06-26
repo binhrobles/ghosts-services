@@ -8,10 +8,10 @@ resource "aws_dynamodb_table" "entries_table" {
   read_capacity  = 2
   write_capacity = 2
 
-  hash_key = "_id"
+  hash_key = "id"
 
   attribute {
-    name = "_id"
+    name = "id"
     type = "S"
   }
 

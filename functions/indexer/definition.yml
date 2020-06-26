@@ -6,6 +6,9 @@
 Indexer:
   handler: functions/indexer/handler.IndexRecords
   role: IndexerLambdaRole
+  environment:
+    ES_ENDPOINT:
+      Fn::ImportValue: 'GhostsESDomainEndpoint-${opt:stage, self:provider.stage}'
   events:
     - stream:
         type: dynamodb

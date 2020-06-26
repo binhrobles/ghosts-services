@@ -12,13 +12,18 @@
     "stop": "docker-compose stop",
     "down": "docker-compose down",
     "deploy:personal": "serverless deploy -s $(whoami) -v --aws-s3-accelerate",
+    "destroy:personal": "serverless remove -s $(whoami) -v",
     "deploy:personal-complete": "cd infrastructure/personal && terraform apply --auto-approve && cd ../.. && serverless deploy -s $(whoami) -v --aws-s3-accelerate",
-    "destroy:personal": "serverless remove -s $(whoami) -v && cd infrastructure/personal && terraform destroy --auto-approve"
+    "destroy:personal-complete": "serverless remove -s $(whoami) -v && cd infrastructure/personal && terraform destroy --auto-approve"
   },
   "dependencies": {
+    "@types/elasticsearch": "^5.0.36",
+    "@types/http-aws-es": "^6.0.0",
     "@types/shortid": "^0.0.29",
-    "aws-sdk": "^2.699.0",
+    "aws-sdk": "^2.705.0",
     "axios": "^0.19.2",
+    "elasticsearch": "^16.7.1",
+    "http-aws-es": "^6.0.0",
     "serverless-offline": "^6.4.0",
     "shortid": "^2.2.15",
     "source-map-support": "^0.5.10"

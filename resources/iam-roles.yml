@@ -15,6 +15,15 @@ Resources:
       Path: /ghosts/
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
+      Policies:
+        - PolicyName: 'AllowESDomainAccess'
+          PolicyDocument: 
+            Version: '2012-10-17'
+            Statement: 
+              - Effect: 'Allow'
+                Action:
+                  - 'es:ESHttp*'
+                Resource: '*'
 
   EntriesLambdaRole:
     Type: 'AWS::IAM::Role'

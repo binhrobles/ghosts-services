@@ -1,12 +1,9 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
+import { APIGatewayProxyHandler } from 'aws-lambda';
 import { CreateClient, CreateEntry } from './lib/database_client';
+import { handleError } from '../common/error';
 
 const ddbClient = CreateClient();
-
-const handleError = (e: Error) => {
-  console.error(JSON.stringify(e, null, 2));
-};
 
 export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
   try {

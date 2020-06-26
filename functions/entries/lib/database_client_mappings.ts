@@ -11,7 +11,7 @@ const getTTLSeconds = (numDays: number) => {
 export const mapCreateEntryToItem = (
   entry: CreateEntryInput
 ): DynamoDB.DocumentClient.PutItemInputAttributeMap => {
-  const _id = shortid.generate();
+  const id = shortid.generate();
   const now = Date.now();
 
   const TTL = entry.ttl === TTLOptions.NEVER ? null : getTTLSeconds(entry.ttl);
@@ -19,7 +19,7 @@ export const mapCreateEntryToItem = (
   console.log(TTL);
 
   return {
-    _id,
+    id,
     TTL,
     CreateTime: now,
     Text: entry.text,
