@@ -39,7 +39,7 @@ package:
 
 functions:
   - ${file(./functions/entries/definition.yml)}
+  - ${file(./functions/indexer/definition.yml)}
 
 resources:
   - ${file(./resources/iam-roles.yml)}
-  - ${file(./resources/dynamo.yml)}

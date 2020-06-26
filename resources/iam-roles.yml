@@ -1,6 +1,6 @@
 ---
 Resources:
-  QueryLambdaRole:
+  IndexerLambdaRole:
     Type: 'AWS::IAM::Role'
     Properties:
       AssumeRolePolicyDocument:
@@ -14,7 +14,7 @@ Resources:
               - 'sts:AssumeRole'
       Path: /ghosts/
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSLambdaExecute
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
 
   EntriesLambdaRole:
     Type: 'AWS::IAM::Role'
@@ -43,4 +43,4 @@ Resources:
                   - 'dynamodb:Update*'
                   - 'dynamodb:Put*'
                 Resource:
-                  Fn::GetAtt: [ EntriesTable, Arn ]
+                  Fn::ImportValue: "EntriesTableArn-${opt:stage, self:provider.stage}"

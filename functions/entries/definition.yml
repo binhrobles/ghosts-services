@@ -4,7 +4,7 @@ CreateEntry:
   role: EntriesLambdaRole
   environment:
     DDB_TABLE:
-      Ref: EntriesTable
+      Fn::ImportValue: 'EntriesTableName-${opt:stage, self:provider.stage}'
   events:
     - http:
         method: post

@@ -1,0 +1,10 @@
+# TODO: set up execution limits
+---
+Indexer:
+  handler: functions/indexer/handler.IndexRecords
+  role: IndexerLambdaRole
+  events:
+    - stream:
+        type: dynamodb
+        arn:
+          Fn::ImportValue: 'EntriesTableStreamArn-${opt:stage, self:provider.stage}'

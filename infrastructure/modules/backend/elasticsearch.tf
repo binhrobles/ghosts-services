@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_log_group" "es_app_logs" {
-  name = "${local.domain_env}-app"
+  name = "${local.domain_name}-app"
 }
 
 resource "aws_cloudwatch_log_resource_policy" "es_cloudwatch_log_policy" {
@@ -27,7 +27,7 @@ CONFIG
 }
 
 resource "aws_elasticsearch_domain" "es_domain" {
-  domain_name           = local.domain_env
+  domain_name           = local.domain_name
   elasticsearch_version = "7.4"
 
   cluster_config {
@@ -53,10 +53,10 @@ resource "aws_elasticsearch_domain" "es_domain" {
     {
       "Action": "es:*",
       "Principal": {
-        "AWS": "${data.aws_caller_identity.current.account_id}"
+        "AWS": "${var.account_id}"
       },
       "Effect": "Allow",
-      "Resource": "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${local.domain_env}/*"
+      "Resource": "arn:aws:es:${var.region}:${var.account_id}:domain/${local.domain_name}/*"
     }
   ]
 }
