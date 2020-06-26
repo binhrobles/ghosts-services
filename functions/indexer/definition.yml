@@ -1,4 +1,7 @@
 # TODO: set up execution limits
+# max retries for erroring record
+# dead letter queue
+# Alarms --> email
 ---
 Indexer:
   handler: functions/indexer/handler.IndexRecords

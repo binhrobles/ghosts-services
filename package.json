@@ -11,7 +11,8 @@
     "provision": "cd infrastructure/local && terraform apply --auto-approve",
     "stop": "docker-compose stop",
     "down": "docker-compose down",
-    "deploy:personal": "cd infrastructure/personal && terraform apply --auto-approve && cd ../.. && serverless deploy -s $(whoami) -v --aws-s3-accelerate",
+    "deploy:personal": "serverless deploy -s $(whoami) -v --aws-s3-accelerate",
+    "deploy:personal-complete": "cd infrastructure/personal && terraform apply --auto-approve && cd ../.. && serverless deploy -s $(whoami) -v --aws-s3-accelerate",
     "destroy:personal": "serverless remove -s $(whoami) -v && cd infrastructure/personal && terraform destroy --auto-approve"
   },
   "dependencies": {
