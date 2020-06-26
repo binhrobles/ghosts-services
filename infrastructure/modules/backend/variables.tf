@@ -9,7 +9,7 @@ variable "env" {
 }
 
 variable "es_domain_iteration" {
-  type = string
+  type    = string
   default = "v1"
 }
 
@@ -18,5 +18,5 @@ variable "account_id" {
 }
 
 locals {
-domain_name = "ghosts-${var.es_domain_iteration}-${var.env}"
+  domain_name = "ghosts-${var.es_domain_iteration}-${var.env}"
 }
