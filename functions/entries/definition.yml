@@ -1,3 +1,4 @@
+# TODO: support GET Entry by ID
 ---
 CreateEntry:
   handler: functions/entries/handler.CreateEntryHandler

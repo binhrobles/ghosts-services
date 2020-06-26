@@ -1,0 +1,19 @@
+# TODO: support GET last n records (sort CreateTime desc) in namespace
+#               GET records in bounding box (geospatial) in namespace
+#               GET records with tag in namespace
+#       for all these, just return metadata, a subsequent request can get entry text
+---
+GetRecentEntries:
+  handler: functions/query/handler.GetRecentEntriesHandler
+  role: QueryLambdaRole
+  environment:
+    ES_ENDPOINT:
+      Fn::ImportValue: 'GhostsESDomainEndpoint-${opt:stage, self:provider.stage}'
+  events:
+    - http:
+        method: get
+        path: namespace/{namespace}/entries
+        request:
+          parameters:
+            querystrings:
+              count: false  # defaults to last 100 records

@@ -1,5 +1,4 @@
 # TODO: set up execution limits
-# max retries for erroring record
 # dead letter queue
 # Alarms --> email
 ---
@@ -12,5 +11,8 @@ Indexer:
   events:
     - stream:
         type: dynamodb
+        maximumRetryAttempts: 3
+        startingPosition: TRIM_HORIZON
+        bisectBatchOnFunctionError: true
         arn:
           Fn::ImportValue: 'EntriesTableStreamArn-${opt:stage, self:provider.stage}'
