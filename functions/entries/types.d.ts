@@ -8,7 +8,7 @@ interface CreateEntryInput {
     lng: number;
   };
   ttl: TTLOptions;
-  date: number; // optional
+  date: string; // optional
   submitter: string; // optional
   tags: Array<string>; // optional
 }
