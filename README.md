@@ -3,7 +3,11 @@
 ## Stack
 
 - [Serverless](https://www.serverless.com/) for API Gateway and function creation
-- [LocalStack](https://github.com/localstack/localstack) for local AWS service mocking
+- DynamoDB for persistent storage
+- Amazon Elasticsearch for performant geospatial queries
+- Entries lambda behind API Gateway for Entries creation
+- Indexer lambda listens to DynamoDB events and indexes entries into Elasticsearch
+- Query lambdas behind API Gateway provides client abstraction for ES
 
 ## Usage
 
@@ -16,9 +20,10 @@
 ### Personal Stack
 
 - For testing with real/shared infrastructure, integration tests, pre-commit smoke test
-- `yarn deploy:personal` should deploy a personal stack using the machine's `whoami` value
+- `yarn deploy:personal-complete` should deploy a personal stack using the machine's `whoami` value
+- `yarn deploy:personal` to just deploy the functions
 - Lambdas are available behind `ghosts-api.binhrobles.com/{whoami}`
-- Cleanup! `yarn destroy:personal`
+- Cleanup! `yarn destroy:personal` || `yarn destroy:personal-complete`
 
 ### Deploying
 
@@ -33,6 +38,7 @@
 
 - Github Action deploys to prod with `sls deploy -s prod`
 - `serverless-custom-domain` creates a path off the root domain to the deployed stage
+- TODO: Github Action invokes Elasticsearch provisioning lambda
 
 #### Post-Deploy Manual Steps
 

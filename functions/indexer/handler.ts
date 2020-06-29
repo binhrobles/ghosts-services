@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 import { DynamoDBStreamHandler, DynamoDBStreamEvent } from 'aws-lambda';
 import { CreateClient } from '../common/es_client';
-import { handleError } from '../common/error';
+import handleError from '../common/handleError';
 
 const es = CreateClient(process.env.ES_ENDPOINT);
 

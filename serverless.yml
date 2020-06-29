@@ -22,6 +22,7 @@ custom:
 
 plugins:
   - serverless-webpack
+  - serverless-pseudo-parameters
   - serverless-localstack
   - serverless-offline
 
@@ -40,6 +41,7 @@ package:
 functions:
   - ${file(./functions/entries/definition.yml)}
   - ${file(./functions/indexer/definition.yml)}
+  - ${file(./functions/query/definition.yml)}
 
 resources:
   - ${file(./resources/iam-roles.yml)}

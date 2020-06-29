@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { CreateClient, CreateEntry } from './lib/database_client';
-import { handleError } from '../common/error';
+import handleError from '../common/handleError';
 
 const ddbClient = CreateClient();
 
