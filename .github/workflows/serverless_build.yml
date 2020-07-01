@@ -67,10 +67,18 @@ jobs:
     - name: Terraform Plan
       if: github.ref != 'refs/heads/master' || github.event_name != 'push'
       run: terraform plan -var-file="terraform.tfvars"
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ env.REGION }}
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -var-file="terraform.tfvars" -auto-approve
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ env.REGION }}
 
   deploy-services:
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
