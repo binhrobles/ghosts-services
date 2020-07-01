@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  STAGE: 'prod' # because master
+  STAGE: 'production' # because master
   REGION: 'us-west-2'
   TF_WORKING_DIR: 'infrastructure/production/'
 

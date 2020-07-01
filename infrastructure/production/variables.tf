@@ -5,7 +5,7 @@ variable "region" {
 
 variable "env" {
   type    = string
-  default = "production"
+  default = "prod"
 }
 
 variable "es_domain_iteration" {

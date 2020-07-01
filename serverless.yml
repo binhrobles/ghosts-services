@@ -7,7 +7,7 @@ custom:
   stage: ${opt:stage, self:provider.stage}
 
   domains:
-    prod: ghosts-api.binhrobles.com
+    production: ghosts-api.binhrobles.com
     other: personal.ghosts-api.binhrobles.com
 
   webpack:
