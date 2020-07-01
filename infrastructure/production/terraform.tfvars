@@ -1,1 +1,1 @@
-region = REPLACE_REGION
+region = "REPLACE_REGION"

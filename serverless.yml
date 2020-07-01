@@ -4,7 +4,9 @@ service:
   org: binhrobles
 
 custom:
-  domainName:
+  stage: ${opt:stage, self:provider.stage}
+
+  domains:
     prod: ghosts-api.binhrobles.com
     other: personal.ghosts-api.binhrobles.com
 
@@ -14,9 +16,9 @@ custom:
     webpackConfig: ./webpack.config.js
 
   customDomain:
-    domainName: ${self.custom.domainName.${opt:stage}, self:custom.domainName.other}}
-    basePath: ${opt:stage, self:provider.stage}
-    stage: ${opt:stage, self:provider.stage}
+    stage: ${self:custom.stage}
+    domainName: ${self.custom.domains.${self:custom.stage}, self:custom.domains.other}}
+    basePath: ""
     createRoute53Record: false
     endpointType: 'regional'
 
