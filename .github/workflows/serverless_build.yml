@@ -71,6 +71,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ env.REGION }}
+        AWS_STS_REGIONAL_ENDPOINTS: regional
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -79,6 +80,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ env.REGION }}
+        AWS_STS_REGIONAL_ENDPOINTS: regional
 
   deploy-services:
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
