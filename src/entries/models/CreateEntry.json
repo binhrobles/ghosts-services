@@ -5,17 +5,17 @@
   "title": "CreateEntry",
   "required": ["text", "description", "location", "ttl"],
   "properties": {
-    "text": { "type": "string" },
-    "description": { "type": "string" },
+    "text": { "type": "string", "maxLength": 10000 },
+    "description": { "type": "string", "maxLength": 30 },
     "location": {
       "type": "object",
       "properties": {
-        "lng": { "type": "number" },
-        "lat": { "type": "number" }
+        "lng": { "type": "number", "minimum": -180, "maximum": 180 },
+        "lat": { "type": "number", "minimum": -90, "maximum": 90 }
       }
     },
-    "date": { "type": "string" },
-    "submitter": { "type": "string" },
-    "ttl": { "type": "number" }
+    "date": { "type": "string", "maxLength": 20 },
+    "submitter": { "type": "string", "maxLength": 20 },
+    "ttl": { "type": "number", "minimum": -1, "maximum": 31 }
   }
 }
