@@ -10,6 +10,7 @@ CreateEntry:
     - http:
         method: post
         path: namespace/{namespace}/entry
+        cors: true
         request:
           schema:
             application/json: ${file(functions/entries/models/CreateEntry.json)}

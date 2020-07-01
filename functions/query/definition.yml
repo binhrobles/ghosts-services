@@ -13,6 +13,7 @@ GetRecentEntries:
     - http:
         method: get
         path: namespace/{namespace}/entries
+        cors: true
         request:
           parameters:
             querystrings:

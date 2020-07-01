@@ -6,6 +6,7 @@ import {
 } from 'aws-lambda';
 import { CreateClient, GetRecentEntries } from '../common/es_client';
 import handleError from '../common/handleError';
+import corsResponse from '../common/response';
 
 const es = CreateClient(process.env.ES_ENDPOINT);
 
@@ -20,15 +21,15 @@ export const GetRecentEntriesHandler: APIGatewayProxyHandler = async (
 
     const entries = await GetRecentEntries({ client: es, namespace, count });
 
-    return {
+    return corsResponse({
       statusCode: 200,
       body: JSON.stringify(entries),
-    };
+    });
   } catch (e) {
     handleError(e);
-    return {
+    return corsResponse({
       statusCode: 500,
       body: JSON.stringify({ error: e.message }),
-    };
+    });
   }
 };
