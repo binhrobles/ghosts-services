@@ -1,5 +1,4 @@
 import DynamoDB from 'aws-sdk/clients/dynamodb';
-import shortid from 'shortid';
 import { CreateEntryInput } from '../types.d';
 import { TTLOptions } from '../enums';
 
@@ -11,15 +10,13 @@ const getTTLSeconds = (numDays: number) => {
 export const mapCreateEntryToItem = (
   entry: CreateEntryInput
 ): DynamoDB.DocumentClient.PutItemInputAttributeMap => {
-  const id = shortid.generate();
   const now = Date.now();
 
   const TTL = entry.ttl === TTLOptions.NEVER ? null : getTTLSeconds(entry.ttl);
 
-  console.log(TTL);
-
   return {
-    id,
+    id: entry.id,
+    namespace: entry.namespace,
     TTL,
     CreateTime: now,
     Text: entry.text,

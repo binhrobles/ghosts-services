@@ -1,5 +1,6 @@
 /* uses a service-generated ID for the partition key */
 /* acceptable since elasticsearch will handle all querying responsibilities */
+/* use namespace as sort key only as precaution against cross-namespace id collision */
 resource "aws_dynamodb_table" "entries_table" {
   name = "ghosts-api-Entries-${var.env}"
 
@@ -9,9 +10,15 @@ resource "aws_dynamodb_table" "entries_table" {
   write_capacity = 2
 
   hash_key = "id"
+  range_key = "namespace"
 
   attribute {
     name = "id"
+    type = "S"
+  }
+
+  attribute {
+    name = "namespace"
     type = "S"
   }
 

@@ -19,10 +19,9 @@ export function CreateClient(): DynamoDB.DocumentClient {
 
 export async function CreateEntry(
   client: DynamoDB.DocumentClient,
-  entry: CreateEntryInput,
-  Namespace: string
+  entry: CreateEntryInput
 ): Promise<void> {
-  const Item = { Namespace, ...mapCreateEntryToItem(entry) };
+  const Item = mapCreateEntryToItem(entry);
 
   const result = await client
     .put({
@@ -31,4 +30,22 @@ export async function CreateEntry(
     })
     .promise();
   console.log(JSON.stringify(result.ConsumedCapacity));
+}
+
+export async function GetEntry(
+  client: DynamoDB.DocumentClient,
+  namespace: string,
+  id: string
+): Promise<any> {
+  const result = await client
+    .get({
+      TableName,
+      Key: {
+        id,
+        namespace,
+      },
+    })
+    .promise();
+  console.log(JSON.stringify(result.ConsumedCapacity));
+  return result.Item;
 }

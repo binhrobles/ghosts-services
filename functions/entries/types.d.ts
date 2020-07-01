@@ -1,6 +1,8 @@
 import { TTLOptions } from './enums';
 
 interface CreateEntryInput {
+  id: string;
+  namespace: string;
   text: string;
   description: string;
   location: {

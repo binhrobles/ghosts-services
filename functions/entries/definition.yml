@@ -17,3 +17,20 @@ CreateEntry:
           parameters:
             paths:
               namespace: true
+
+GetEntry:
+  handler: functions/entries/handler.GetEntryHandler
+  role: EntriesLambdaRole
+  environment:
+    DDB_TABLE:
+      Fn::ImportValue: 'EntriesTableName-${opt:stage, self:provider.stage}'
+  events:
+    - http:
+        method: get
+        path: namespace/{namespace}/entry/{id}
+        cors: true
+        request:
+          parameters:
+            paths:
+              namespace: true
+              id: true
