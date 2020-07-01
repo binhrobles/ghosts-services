@@ -9,7 +9,7 @@ resource "aws_dynamodb_table" "entries_table" {
   read_capacity  = 2
   write_capacity = 2
 
-  hash_key = "id"
+  hash_key  = "id"
   range_key = "namespace"
 
   attribute {

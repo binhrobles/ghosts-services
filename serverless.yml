@@ -4,13 +4,17 @@ service:
   org: binhrobles
 
 custom:
+  domainName:
+    prod: ghosts-api.binhrobles.com
+    other: personal.ghosts-api.binhrobles.com
+
   webpack:
     includeModules: true
     packager: 'yarn'
     webpackConfig: ./webpack.config.js
 
   customDomain:
-    domainName: ghosts-api.binhrobles.com
+    domainName: ${self.custom.domainName.${opt:stage}, self:custom.domainName.other}}
     basePath: ${opt:stage, self:provider.stage}
     stage: ${opt:stage, self:provider.stage}
     createRoute53Record: false

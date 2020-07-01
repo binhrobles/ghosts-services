@@ -8,6 +8,16 @@ variable "env" {
   default = "dev"
 }
 
+variable "es_version" {
+  type    = string
+  default = "7.4"
+}
+
+variable "es_instance_type" {
+  type    = string
+  default = "t2.small.elasticsearch"
+}
+
 variable "es_domain_iteration" {
   type    = string
   default = "v1"

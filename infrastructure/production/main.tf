@@ -3,7 +3,7 @@ terraform {
     organization = "binhrobles"
 
     workspaces {
-      name = "ghosts-binhrobles"
+      name = "ghosts-production"
     }
   }
 }
@@ -18,8 +18,6 @@ module "backend" {
   source              = "../modules/backend"
   region              = var.region
   env                 = var.env
-  es_version          = "2.3"
-  es_instance_type    = "t2.micro.elasticsearch"
   es_domain_iteration = var.es_domain_iteration
   account_id          = data.aws_caller_identity.current.account_id
 }

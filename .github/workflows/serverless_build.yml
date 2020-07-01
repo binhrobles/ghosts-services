@@ -1,4 +1,4 @@
-name: Serverless CI
+name: Serverless & Terraform Deployment
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
 
 env:
   STAGE: 'prod' # because master
+  REGION: 'us-west-2'
+  TF_WORKING_DIR: 'infrastructure/production/'
 
 jobs:
   test:
@@ -38,7 +40,38 @@ jobs:
       env:
         CI: true
 
-  package:
+  infrastructure:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.TF_WORKING_DIR }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    - name: Set region
+      run: sed -i 's/REPLACE_REGION/${{ env.REGION }}/g' terraform.tfvars
+
+    - name: Terraform Plan
+      run: terraform plan -var-file="terraform.tfvars"
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: terraform apply -var-file="terraform.tfvars" -auto-approve
+
+  deploy-services:
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     needs: 
       - test
