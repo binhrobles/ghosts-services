@@ -21,6 +21,7 @@ export const GetRecentEntriesHandler: APIGatewayProxyHandler = async (
 
     const entries = await GetRecentEntries({ client: es, namespace, count });
 
+    console.log({ event: 'QUERY', count: entries.length });
     return corsResponse({
       statusCode: 200,
       body: JSON.stringify(entries),
