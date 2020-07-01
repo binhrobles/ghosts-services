@@ -1,5 +1,7 @@
 # ghosts-services
 
+![Serverless & Terraform Deployment](https://github.com/binhrobles/ghosts-services/workflows/Serverless%20&%20Terraform%20Deployment/badge.svg)
+
 ## Stack
 
 - [Serverless](https://www.serverless.com/) for API Gateway and function creation
