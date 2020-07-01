@@ -28,6 +28,5 @@ export const GetRecentEntries = async ({
       _source: ['description', 'submitter', 'location', 'tags'],
     },
   });
-  console.log(response);
   return response.hits.hits;
 };

@@ -15,12 +15,13 @@ export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
     const id = shortid.generate();
 
     await CreateEntry(ddbClient, {
+      ...entry,
       id,
       namespace,
       text: sanitizeText(entry.text),
-      ...entry,
     });
 
+    console.log(JSON.stringify({ event: 'CREATE', namespace, id }));
     return corsResponse({
       statusCode: 200,
       body: JSON.stringify({ id }),
@@ -42,6 +43,7 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
 
     const item = await GetEntry(ddbClient, namespace, id);
 
+    console.log(JSON.stringify({ event: 'GET', namespace, id }));
     return corsResponse({
       statusCode: 200,
       body: JSON.stringify({ ...item }),

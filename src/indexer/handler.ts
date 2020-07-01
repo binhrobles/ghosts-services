@@ -8,8 +8,6 @@ const es = CreateClient(process.env.ES_ENDPOINT);
 export const IndexRecords: DynamoDBStreamHandler = async (
   event: DynamoDBStreamEvent
 ) => {
-  console.log(JSON.stringify(event, null, 2));
-
   await Promise.all(
     event.Records.map(async (record) => {
       const params = {
@@ -17,7 +15,6 @@ export const IndexRecords: DynamoDBStreamHandler = async (
         index: `n-${record.dynamodb.NewImage.namespace.S}`,
         type: '_doc',
       };
-      console.log(JSON.stringify(params, null, 2));
       try {
         if (record.eventName === 'REMOVE') {
           console.log(JSON.stringify({ event: 'DELETE', id: params.id }));
@@ -26,12 +23,11 @@ export const IndexRecords: DynamoDBStreamHandler = async (
           // format our location into an elasticsearch geopoint object
           const recordWithGeo = {
             ...record.dynamodb.NewImage,
-            Location: [
+            location: [
               parseFloat(record.dynamodb.NewImage.location.M.lng.N),
               parseFloat(record.dynamodb.NewImage.location.M.lat.N),
             ],
           };
-          console.log(JSON.stringify(recordWithGeo, null, 2));
           console.log(JSON.stringify({ event: 'PUT', id: params.id }));
           return es.index({
             ...params,
