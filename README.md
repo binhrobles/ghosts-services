@@ -8,6 +8,7 @@
 - Entries lambda behind API Gateway for Entries creation
 - Indexer lambda listens to DynamoDB events and indexes entries into Elasticsearch
 - Query lambdas behind API Gateway provides client abstraction for ES
+- Provision lambda for executing arbitrary provisioning calls to Elasticsearch
 
 ## Usage
 

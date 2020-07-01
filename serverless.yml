@@ -28,7 +28,7 @@ plugins:
 
 provider:
   name: aws
-  region: us-west-1
+  region: us-west-2
   runtime: nodejs12.x
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
@@ -42,6 +42,7 @@ functions:
   - ${file(./src/entries/definition.yml)}
   - ${file(./src/indexer/definition.yml)}
   - ${file(./src/query/definition.yml)}
+  - ${file(./src/provision/definition.yml)}
 
 resources:
   - ${file(./resources/iam-roles.yml)}

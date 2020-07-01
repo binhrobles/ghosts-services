@@ -19,9 +19,9 @@ Resources:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
       Policies:
         - PolicyName: 'AllowESDomainAccess'
-          PolicyDocument: 
+          PolicyDocument:
             Version: '2012-10-17'
-            Statement: 
+            Statement:
               - Effect: 'Allow'
                 Action:
                   - 'es:ESHttp*'
@@ -44,9 +44,9 @@ Resources:
         - arn:aws:iam::aws:policy/AWSLambdaExecute
       Policies:
         - PolicyName: 'AllowEntriesTableAccess'
-          PolicyDocument: 
+          PolicyDocument:
             Version: '2012-10-17'
-            Statement: 
+            Statement:
               - Effect: 'Allow'
                 Action:
                   - 'dynamodb:Get*'
@@ -70,13 +70,38 @@ Resources:
               - 'sts:AssumeRole'
       Path: /ghosts/
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
       Policies:
         - PolicyName: 'AllowESDomainAccess'
-          PolicyDocument: 
+          PolicyDocument:
             Version: '2012-10-17'
-            Statement: 
+            Statement:
               - Effect: 'Allow'
                 Action:
                   - 'es:ESHttp*'
+                Resource: '*'
+
+  ProvisionLambdaRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /ghosts/
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Policies:
+        - PolicyName: 'AllowESDomainAccess'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'es:ESHttpPut'
                 Resource: '*'
