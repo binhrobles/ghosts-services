@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "lib": ["es2019"],
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -9,7 +10,7 @@
     "sourceMap": true,
     "target": "es2019"
   },
-  "include": ["./functions/**/*.ts"],
+  "include": ["./src/**/*.ts"],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",

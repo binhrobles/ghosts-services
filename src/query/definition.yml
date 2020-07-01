@@ -4,7 +4,7 @@
 #       for all these, just return metadata, a subsequent request can get entry text
 ---
 GetRecentEntries:
-  handler: functions/query/handler.GetRecentEntriesHandler
+  handler: src/query/handler.GetRecentEntriesHandler
   role: QueryLambdaRole
   environment:
     ES_ENDPOINT:

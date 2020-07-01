@@ -1,7 +1,7 @@
 # TODO: support GET Entry by ID
 ---
 CreateEntry:
-  handler: functions/entries/handler.CreateEntryHandler
+  handler: src/entries/handler.CreateEntryHandler
   role: EntriesLambdaRole
   environment:
     DDB_TABLE:
@@ -13,13 +13,13 @@ CreateEntry:
         cors: true
         request:
           schema:
-            application/json: ${file(functions/entries/models/CreateEntry.json)}
+            application/json: ${file(src/entries/models/CreateEntry.json)}
           parameters:
             paths:
               namespace: true
 
 GetEntry:
-  handler: functions/entries/handler.GetEntryHandler
+  handler: src/entries/handler.GetEntryHandler
   role: EntriesLambdaRole
   environment:
     DDB_TABLE:

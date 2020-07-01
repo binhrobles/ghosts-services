@@ -27,8 +27,8 @@ export const IndexRecords: DynamoDBStreamHandler = async (
           const recordWithGeo = {
             ...record.dynamodb.NewImage,
             Location: [
-              parseFloat(record.dynamodb.NewImage.Location.M.lng.N),
-              parseFloat(record.dynamodb.NewImage.Location.M.lat.N),
+              parseFloat(record.dynamodb.NewImage.location.M.lng.N),
+              parseFloat(record.dynamodb.NewImage.location.M.lat.N),
             ],
           };
           console.log(JSON.stringify(recordWithGeo, null, 2));

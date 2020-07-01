@@ -2,6 +2,7 @@ import 'source-map-support/register';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import shortid from 'shortid';
 import { CreateClient, CreateEntry, GetEntry } from './lib/database_client';
+import { sanitizeText } from './lib/sanitize';
 import handleError from '../common/handleError';
 import corsResponse from '../common/response';
 
@@ -13,7 +14,12 @@ export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
     const entry = JSON.parse(event.body);
     const id = shortid.generate();
 
-    await CreateEntry(ddbClient, { id, namespace, ...entry });
+    await CreateEntry(ddbClient, {
+      id,
+      namespace,
+      text: sanitizeText(entry.text),
+      ...entry,
+    });
 
     return corsResponse({
       statusCode: 200,

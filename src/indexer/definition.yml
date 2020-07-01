@@ -3,7 +3,7 @@
 # Alarms --> email
 ---
 Indexer:
-  handler: functions/indexer/handler.IndexRecords
+  handler: src/indexer/handler.IndexRecords
   role: IndexerLambdaRole
   environment:
     ES_ENDPOINT:

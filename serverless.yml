@@ -24,7 +24,6 @@ plugins:
   - serverless-webpack
   - serverless-domain-manager
   - serverless-pseudo-parameters
-  - serverless-localstack
   - serverless-offline
 
 provider:
@@ -40,9 +39,9 @@ package:
   individually: true
 
 functions:
-  - ${file(./functions/entries/definition.yml)}
-  - ${file(./functions/indexer/definition.yml)}
-  - ${file(./functions/query/definition.yml)}
+  - ${file(./src/entries/definition.yml)}
+  - ${file(./src/indexer/definition.yml)}
+  - ${file(./src/query/definition.yml)}
 
 resources:
   - ${file(./resources/iam-roles.yml)}

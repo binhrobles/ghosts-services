@@ -16,8 +16,8 @@ export const GetRecentEntries = async ({
   client: ESClient;
   namespace: string;
   count: number;
-}) => {
-  // TODO: this should be sorting by CreateTime desc
+}): Promise<any> => {
+  // TODO: this should be sorting by createTime desc
   const response = await client.search({
     index: namespace,
     size: count,
@@ -25,7 +25,7 @@ export const GetRecentEntries = async ({
       query: {
         match_all: {},
       },
-      _source: ['Description', 'Submitter', 'Location', 'Tags'],
+      _source: ['description', 'submitter', 'location', 'tags'],
     },
   });
   console.log(response);

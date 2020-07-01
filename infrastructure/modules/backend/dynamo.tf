@@ -23,7 +23,7 @@ resource "aws_dynamodb_table" "entries_table" {
   }
 
   ttl {
-    attribute_name = "TTL"
+    attribute_name = "ttl"
     enabled        = true
   }
 
