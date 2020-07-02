@@ -7,7 +7,7 @@ export default function responseObject(
     ...options,
     headers: {
       ...options?.headers,
-      'Access-Control-Allow-Origin': '*.binhrobles.com',
+      'Access-Control-Allow-Origin': 'https://binhrobles.com',
       'Access-Control-Allow-Credentials': true,
     },
   };
