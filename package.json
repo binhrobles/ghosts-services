@@ -26,6 +26,7 @@
     "elasticsearch": "^16.7.1",
     "http-aws-es": "^6.0.0",
     "sanitize-html": "^1.27.0",
+    "serverless-api-gateway-throttling": "^1.0.1",
     "serverless-offline": "^6.4.0",
     "serverless-pseudo-parameters": "^2.5.0",
     "shortid": "^2.2.15",

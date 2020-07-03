@@ -10,6 +10,11 @@ custom:
     production: ghosts-api.binhrobles.com
     other: personal.ghosts-api.binhrobles.com
 
+  # Configures throttling settings for all http endpoints
+  apiGatewayThrottling:
+    maxRequestsPerSecond: 100
+    maxConcurrentRequests: 100
+
   webpack:
     includeModules: true
     packager: 'yarn'
@@ -28,6 +33,7 @@ custom:
 
 plugins:
   - serverless-webpack
+  - serverless-api-gateway-throttling
   - serverless-domain-manager
   - serverless-pseudo-parameters
   - serverless-offline
