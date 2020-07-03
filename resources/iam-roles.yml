@@ -8,8 +8,6 @@ Resources:
         Statement:
           - Effect: Allow
             Principal:
-              AWS:  # TODO: remove this when you're done experimenting
-                - 'arn:aws:iam::#{AWS::AccountId}:root'
               Service:
                 - lambda.amazonaws.com
             Action:

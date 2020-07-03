@@ -13,6 +13,5 @@ Indexer:
         type: dynamodb
         maximumRetryAttempts: 3
         startingPosition: TRIM_HORIZON
-        bisectBatchOnFunctionError: true
         arn:
           Fn::ImportValue: 'EntriesTableStreamArn-${opt:stage, self:provider.stage}'
