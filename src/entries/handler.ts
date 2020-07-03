@@ -43,6 +43,14 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
 
     const item = await GetEntry(ddbClient, namespace, id);
 
+    if (!item) {
+      console.error(JSON.stringify({ event: 'MISS', namespace, id }));
+      return corsResponse({
+        statusCode: 404,
+        body: JSON.stringify({ id, message: 'Does not exist' }),
+      });
+    }
+
     console.log(JSON.stringify({ event: 'GET', namespace, id }));
     return corsResponse({
       statusCode: 200,
