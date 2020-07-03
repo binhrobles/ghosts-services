@@ -4,6 +4,7 @@
 
 ## Stack
 
+- [Ghosts React Client](https://github.com/binhrobles/ghosts-client)
 - [Serverless](https://www.serverless.com/) for API Gateway and function creation
 - DynamoDB for persistent storage
 - Amazon Elasticsearch for performant geospatial queries
