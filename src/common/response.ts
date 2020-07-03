@@ -1,4 +1,5 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
+import config from './config';
 
 export default function responseObject(
   options: APIGatewayProxyResult
@@ -7,8 +8,7 @@ export default function responseObject(
     ...options,
     headers: {
       ...options?.headers,
-      'Access-Control-Allow-Origin': 'https://binhrobles.com',
-      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Origin': config.allowedOrigins,
     },
   };
 }
