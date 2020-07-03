@@ -12,7 +12,7 @@ export const IndexRecords: DynamoDBStreamHandler = async (
     event.Records.map(async (record) => {
       const params = {
         id: record.dynamodb.Keys.id.S,
-        index: `n-${record.dynamodb.NewImage.namespace.S}`,
+        index: `n-${record.dynamodb.Keys.namespace.S}`,
         type: '_doc',
       };
       try {
