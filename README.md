@@ -18,13 +18,14 @@
 ### Locally
 
 - For local dev, testing, and quick feedback
-- `yarn start` should raise localstack docker container and start the API in offline mode
+- `yarn start` should start the API in offline mode
 - Lambdas are available behind `localhost:4000/dev`
 
 ### Personal Stack
 
 - For testing with real/shared infrastructure, integration tests, pre-commit smoke test
 - `yarn deploy:personal-complete` should deploy a personal stack using the machine's `whoami` value
+  - this is actually a 15 min process for this project because of elasticsearch
 - `yarn deploy:personal` to just deploy the functions
 - Lambdas are available behind `ghosts-api.binhrobles.com/{whoami}`
 - Cleanup! `yarn destroy:personal` || `yarn destroy:personal-complete`
@@ -40,9 +41,9 @@
 
 #### Handled by Deployment Pipeline
 
-- Github Action deploys to prod with `sls deploy -s prod`
+- Github Action deploys to prod with `sls deploy -s production`
 - `serverless-custom-domain` creates a path off the root domain to the deployed stage
-- TODO: Github Action invokes Elasticsearch provisioning lambda
+- Github Action invokes Elasticsearch provisioning lambda
 
 #### Post-Deploy Manual Steps
 
