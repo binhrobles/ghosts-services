@@ -38,6 +38,10 @@ provider:
   runtime: nodejs12.x
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  logs:
+    restApi:
+      level: ERROR
+      fullExecutionData: false
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     STAGE: ${self:custom.stage}
