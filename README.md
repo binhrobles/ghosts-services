@@ -1,6 +1,6 @@
 # ghosts-services
 
-![Serverless & Terraform Deployment](https://github.com/binhrobles/ghosts-services/workflows/Serverless%20&%20Terraform%20Deployment/badge.svg)
+![Serverless & Terraform Deployments](https://github.com/binhrobles/ghosts-services/workflows/Serverless%20&%20Terraform%20Deployment/badge.svg)
 
 ## Stack
 
@@ -12,6 +12,8 @@
 - Indexer lambda listens to DynamoDB events and indexes entries into Elasticsearch
 - Query lambdas behind API Gateway provides client abstraction for ES
 - Provision lambda for executing arbitrary provisioning calls to Elasticsearch
+
+![Arch Diagram](https://github.com/binhrobles/ghosts-services/blob/master/docs/ghosts.svg)
 
 ## Usage
 
