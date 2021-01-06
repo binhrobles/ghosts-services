@@ -123,8 +123,19 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ env.REGION }}
 
+    - name: serverless deploy
+      uses: serverless/github-action@master
+      with:
+        args: deploy -s ${{ env.STAGE }}
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ env.REGION }}
+
     - name: serverless provision environment
-      run: serverless invoke -s ${{ env.STAGE }} -f Provision
+      uses: serverless/github-action@master
+      with:
+        args: invoke -s ${{ env.STAGE }} -f Provision
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
