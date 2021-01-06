@@ -113,9 +113,6 @@ jobs:
     - name: Install dependencies
       run: yarn --frozen-lockfile
 
-    - name: Install serverless cli
-      run: yarn global add serverless && echo "::add-path::$(yarn global bin)"
-
     - name: serverless deploy
       run: serverless deploy -s ${{ env.STAGE }}
       env:
