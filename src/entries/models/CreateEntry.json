@@ -14,8 +14,6 @@
         "lat": { "type": "number", "minimum": -90, "maximum": 90 }
       }
     },
-    "date": { "type": "string", "maxLength": 20 },
-    "submitter": { "type": "string", "maxLength": 20 },
     "ttl": { "type": "number", "minimum": -1, "maximum": 31 }
   }
 }
