@@ -22,7 +22,7 @@
     "@types/sanitize-html": "^1.23.3",
     "@types/shortid": "^0.0.29",
     "aws-sdk": "^2.705.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "elasticsearch": "^16.7.1",
     "http-aws-es": "^6.0.0",
     "sanitize-html": "^1.27.0",
