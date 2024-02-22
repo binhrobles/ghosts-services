@@ -16,18 +16,6 @@ resource "aws_cloudformation_stack" "cfn_outputs" {
         }
     },
     "Outputs": {
-        "ESDomainArn": {
-            "Value": "${aws_elasticsearch_domain.es_domain.arn}",
-            "Export": {
-                "Name": "GhostsESDomainArn-${var.env}"
-            }
-        },
-        "ESDomainEndpoint": {
-            "Value": "${aws_elasticsearch_domain.es_domain.endpoint}",
-            "Export": {
-                "Name": "GhostsESDomainEndpoint-${var.env}"
-            }
-        },
         "EntriesTableName": {
             "Value": "${aws_dynamodb_table.entries_table.id}",
             "Export": {
@@ -38,12 +26,6 @@ resource "aws_cloudformation_stack" "cfn_outputs" {
             "Value": "${aws_dynamodb_table.entries_table.arn}",
             "Export": {
                 "Name": "EntriesTableArn-${var.env}"
-            }
-        },
-        "EntriesTableStreamArn": {
-            "Value": "${aws_dynamodb_table.entries_table.stream_arn}",
-            "Export": {
-                "Name": "EntriesTableStreamArn-${var.env}"
             }
         }
     }

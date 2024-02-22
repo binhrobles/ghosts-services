@@ -15,15 +15,6 @@ Resources:
       Path: /ghosts/
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
-      Policies:
-        - PolicyName: 'AllowESDomainAccess'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: 'Allow'
-                Action:
-                  - 'es:ESHttp*'
-                Resource: '*'
 
   EntriesLambdaRole:
     Type: 'AWS::IAM::Role'
@@ -53,53 +44,3 @@ Resources:
                   - 'dynamodb:Put*'
                 Resource:
                   Fn::ImportValue: "EntriesTableArn-${opt:stage, self:provider.stage}"
-
-  QueryLambdaRole:
-    Type: 'AWS::IAM::Role'
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-            Action:
-              - 'sts:AssumeRole'
-      Path: /ghosts/
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSLambdaExecute
-      Policies:
-        - PolicyName: 'AllowESDomainAccess'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: 'Allow'
-                Action:
-                  - 'es:ESHttp*'
-                Resource: '*'
-
-  ProvisionLambdaRole:
-    Type: 'AWS::IAM::Role'
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-            Action:
-              - 'sts:AssumeRole'
-      Path: /ghosts/
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSLambdaExecute
-      Policies:
-        - PolicyName: 'AllowESDomainAccess'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: 'Allow'
-                Action:
-                  - 'es:ESHttpPut'
-                Resource: '*'

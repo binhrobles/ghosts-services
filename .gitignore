@@ -13,7 +13,7 @@ jspm_packages
 # Terraform
 *.tfstate
 *.tfstate*
-.terraform
+.terraform*
 
 .env
 .eslintcache

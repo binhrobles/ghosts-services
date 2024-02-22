@@ -1,7 +1,0 @@
----
-Provision:
-  handler: src/provision/handler.ProvisionTemplatesHandler
-  role: ProvisionLambdaRole
-  environment:
-    ES_ENDPOINT:
-      Fn::ImportValue: 'GhostsESDomainEndpoint-${opt:stage, self:provider.stage}'

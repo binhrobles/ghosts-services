@@ -7,13 +7,17 @@
 - [Ghosts React Client](https://github.com/binhrobles/ghosts-client)
 - [Serverless](https://www.serverless.com/) for API Gateway and function creation
 - DynamoDB for persistent storage
+- Entries lambda behind API Gateway for Entries CRUD
+
+### Initial Stack ($)
+- see [using-elasticsearch](https://github.com/binhrobles/ghosts-services/tree/using-elasticsearch)
 - Amazon Elasticsearch for performant geospatial queries
-- Entries lambda behind API Gateway for Entries creation
-- Indexer lambda listens to DynamoDB events and indexes entries into Elasticsearch
 - Query lambdas behind API Gateway provides client abstraction for ES
+- Indexer lambda listens to DynamoDB events and indexes entries into Elasticsearch
 - Provision lambda for executing arbitrary provisioning calls to Elasticsearch
 
 ![Arch Diagram](https://github.com/binhrobles/ghosts-services/blob/master/docs/ghosts.svg)
+
 
 ## Usage
 
@@ -27,7 +31,6 @@
 
 - For testing with real/shared infrastructure, integration tests, pre-commit smoke test
 - `yarn deploy:personal-complete` should deploy a personal stack using the machine's `whoami` value
-  - this is actually a 15 min process for this project because of elasticsearch
 - `yarn deploy:personal` to just deploy the functions
 - Lambdas are available behind `ghosts-api.binhrobles.com/{whoami}`
 - Cleanup! `yarn destroy:personal` || `yarn destroy:personal-complete`
