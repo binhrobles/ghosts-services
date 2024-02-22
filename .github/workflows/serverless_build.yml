@@ -110,7 +110,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: serverless deploy
-        uses: serverless/github-action@master
+        uses: serverless/github-action@v2
         with:
           args: deploy -s ${{ env.STAGE }}
         env:
@@ -119,7 +119,7 @@ jobs:
           AWS_REGION: ${{ env.REGION }}
 
       - name: serverless provision environment
-        uses: serverless/github-action@master
+        uses: serverless/github-action@v2
         with:
           args: invoke -s ${{ env.STAGE }} -f Provision
         env:
