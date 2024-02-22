@@ -11,7 +11,7 @@ CreateEntry:
         path: namespace/{namespace}/entry
         cors: true
         request:
-          schema:
+          schemas:
             application/json: ${file(src/entries/models/CreateEntry.json)}
           parameters:
             paths:

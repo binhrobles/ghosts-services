@@ -1,7 +1,5 @@
 org: binhrobles
-service:
-  name: ghosts-api
-  org: binhrobles
+service: ghosts-api
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -23,7 +21,7 @@ custom:
   customDomain:
     stage: ${self:custom.stage}
     domainName: ${self:custom.domains.${self:custom.stage}, self:custom.domains.other}
-    basePath: ""
+    basePath: ''
     createRoute53Record: false
     endpointType: 'regional'
 
@@ -35,13 +33,12 @@ plugins:
   - serverless-webpack
   - serverless-api-gateway-throttling
   - serverless-domain-manager
-  - serverless-pseudo-parameters
   - serverless-offline
 
 provider:
   name: aws
   region: us-east-1
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   logs:
