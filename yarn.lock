@@ -2699,7 +2699,7 @@ available-typed-arrays@^1.0.6, available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-aws-sdk@^2.1404.0, aws-sdk@^2.402.0, aws-sdk@^2.755.0, aws-sdk@^2.834.0:
+aws-sdk@^2.1404.0, aws-sdk@^2.402.0, aws-sdk@^2.834.0:
   version "2.1564.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1564.0.tgz#f42dc035ade7d8cb90df0f553453b27ebcc6f332"
   integrity sha512-597Ugza41QCTknjv2VDeUMBFHvHVdg/h9qydDwnX+2kK/EcdE+Vjopcz2+lhHBlbqLi9yUbT4yc1nfo8T+f53w==
@@ -7107,14 +7107,6 @@ serverless-api-gateway-throttling@^1.0.1:
   dependencies:
     lodash.get "^4.4.2"
     lodash.isempty "^4.4.0"
-
-serverless-domain-manager@^4.1.1:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/serverless-domain-manager/-/serverless-domain-manager-4.2.3.tgz#634982b78e7ae3f49a3c0b1eefd720f73579297d"
-  integrity sha512-qZJwl98TQ6V0YtCnjywpdoruyFUdCprm55tUyF7Hecd5S3QJg5tovXCg2bTnmt0pieGHut4l9oqBdkcOPiGzjg==
-  dependencies:
-    aws-sdk "^2.755.0"
-    chalk "^2.4.2"
 
 serverless-localstack@^0.4.24:
   version "0.4.36"

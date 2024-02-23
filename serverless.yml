@@ -4,10 +4,6 @@ service: ghosts-api
 custom:
   stage: ${opt:stage, self:provider.stage}
 
-  domains:
-    production: ghosts-api.binhrobles.com
-    other: personal.ghosts-api.binhrobles.com
-
   # Configures throttling settings for all http endpoints
   apiGatewayThrottling:
     maxRequestsPerSecond: 100
@@ -18,13 +14,6 @@ custom:
     packager: 'yarn'
     webpackConfig: ./webpack.config.js
 
-  customDomain:
-    stage: ${self:custom.stage}
-    domainName: ${self:custom.domains.${self:custom.stage}, self:custom.domains.other}
-    basePath: ''
-    createRoute53Record: false
-    endpointType: 'regional'
-
   serverless-offline:
     httpPort: 4000
     useChildProcesses: true
@@ -32,13 +21,12 @@ custom:
 plugins:
   - serverless-webpack
   - serverless-api-gateway-throttling
-  - serverless-domain-manager
   - serverless-offline
 
 provider:
   name: aws
   region: us-east-1
-  runtime: nodejs14.x
+  runtime: nodejs16.x
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   logs:

@@ -10,6 +10,7 @@
 - Entries lambda behind API Gateway for Entries CRUD
 
 ### Initial Stack ($)
+
 - see [using-elasticsearch](https://github.com/binhrobles/ghosts-services/tree/using-elasticsearch)
 - Amazon Elasticsearch for performant geospatial queries
 - Query lambdas behind API Gateway provides client abstraction for ES
@@ -17,7 +18,6 @@
 - Provision lambda for executing arbitrary provisioning calls to Elasticsearch
 
 ![Arch Diagram](https://github.com/binhrobles/ghosts-services/blob/master/docs/ghosts.svg)
-
 
 ## Usage
 
@@ -40,6 +40,7 @@
 #### Manual Steps
 
 - Domain registered and updated in `serverless.yml/custom/customDomain`
+  - forked this...who needs a custom backend endpoint
 - Certificate created in ACM
 - Custom domain created with: `sls create_domain`
   - could've done this in terraform, but seems like serverless-custom-domain plugin expects some CFN outputs to be made available for the function deployments to work
