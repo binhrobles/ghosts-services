@@ -1,51 +1,48 @@
-import DynamoDB from 'aws-sdk/clients/dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import {
+  DynamoDBDocumentClient,
+  PutCommand,
+  GetCommand,
+} from '@aws-sdk/lib-dynamodb';
 import { mapCreateEntryToItem } from './database_client_mappings';
-import { CreateEntryInput } from '../types.d';
+import { Entry } from '../types.d';
 
 // TODO: move into CreateClient
 const TableName = process.env.IS_OFFLINE ? 'Entries' : process.env.DDB_TABLE;
+const config = process.env.IS_OFFLINE
+  ? {
+      endpoint: 'http://localhost:4566',
+    }
+  : {};
 
-export function CreateClient(): DynamoDB.DocumentClient {
-  const config = process.env.IS_OFFLINE
-    ? {
-        endpoint: 'http://localhost:4566',
-      }
-    : {};
-  console.log(
-    JSON.stringify({ event: 'Client created', table: TableName, config })
-  );
-  return new DynamoDB.DocumentClient(config);
-}
+// Create a DynamoDB client
+const client = DynamoDBDocumentClient.from(new DynamoDBClient(config));
+console.log(
+  JSON.stringify({ event: 'Client created', table: TableName, config })
+);
 
-export async function CreateEntry(
-  client: DynamoDB.DocumentClient,
-  entry: CreateEntryInput
-): Promise<void> {
+export async function CreateEntry(entry: Entry): Promise<void> {
   const Item = mapCreateEntryToItem(entry);
 
-  const result = await client
-    .put({
+  const result = await client.send(
+    new PutCommand({
       TableName,
       Item,
     })
-    .promise();
+  );
   console.log(JSON.stringify(result.ConsumedCapacity));
 }
 
-export async function GetEntry(
-  client: DynamoDB.DocumentClient,
-  namespace: string,
-  id: string
-): Promise<any> {
-  const result = await client
-    .get({
+export async function GetEntry(namespace: string, id: string): Promise<Entry> {
+  const result = await client.send(
+    new GetCommand({
       TableName,
       Key: {
         id,
         namespace,
       },
     })
-    .promise();
+  );
   console.log(JSON.stringify(result.ConsumedCapacity));
-  return result.Item;
+  return result.Item as Entry;
 }

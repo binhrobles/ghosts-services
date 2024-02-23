@@ -1,6 +1,6 @@
 import { TTLOptions } from './enums';
 
-interface CreateEntryInput {
+interface Entry {
   id: string;
   namespace: string;
   text: string;
@@ -13,4 +13,9 @@ interface CreateEntryInput {
   date: string; // optional
   submitter: string; // optional
   tags: Array<string>; // optional
+}
+
+interface DBEntry extends Entry {
+  ttl: TTLOptions;
+  createTime: number;
 }

@@ -1,12 +1,10 @@
 import 'source-map-support/register';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import shortid from 'shortid';
-import { CreateClient, CreateEntry, GetEntry } from './lib/database_client';
+import { CreateEntry, GetEntry } from './lib/database_client';
 import { sanitizeText } from './lib/sanitize';
 import handleError from '../common/handleError';
 import corsResponse from '../common/response';
-
-const ddbClient = CreateClient();
 
 export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
   try {
@@ -14,7 +12,7 @@ export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
     const entry = JSON.parse(event.body);
     const id = shortid.generate();
 
-    await CreateEntry(ddbClient, {
+    await CreateEntry({
       ...entry,
       id,
       namespace,
@@ -41,7 +39,7 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
 
     // TODO: validate that the caller has permissions to access this namespace
 
-    const item = await GetEntry(ddbClient, namespace, id);
+    const item = await GetEntry(namespace, id);
 
     if (!item) {
       console.error(JSON.stringify({ event: 'MISS', namespace, id }));
