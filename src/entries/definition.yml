@@ -33,3 +33,15 @@ GetEntry:
             paths:
               namespace: true
               id: true
+
+GetEntries:
+  handler: src/entries/handler.GetEntriesHandler
+  role: EntriesLambdaRole
+  environment:
+    DDB_TABLE:
+      Fn::ImportValue: 'EntriesTableName-${opt:stage, self:provider.stage}'
+  events:
+    - http:
+        method: get
+        path: namespace/{namespace}/entries
+        cors: true

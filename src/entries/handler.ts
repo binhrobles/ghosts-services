@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import shortid from 'shortid';
-import { CreateEntry, GetEntry } from './lib/database_client';
+import db from './lib/database_client';
 import { sanitizeText } from './lib/sanitize';
 import handleError from '../common/handleError';
 import corsResponse from '../common/response';
@@ -12,7 +12,7 @@ export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
     const entry = JSON.parse(event.body);
     const id = shortid.generate();
 
-    await CreateEntry({
+    await db.CreateEntry({
       ...entry,
       id,
       namespace,
@@ -39,7 +39,7 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
 
     // TODO: validate that the caller has permissions to access this namespace
 
-    const item = await GetEntry(namespace, id);
+    const item = await db.GetEntry(id);
 
     if (!item) {
       console.error(JSON.stringify({ event: 'MISS', namespace, id }));
@@ -53,6 +53,24 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
     return corsResponse({
       statusCode: 200,
       body: JSON.stringify({ ...item }),
+    });
+  } catch (e) {
+    handleError(e);
+    return corsResponse({
+      statusCode: 500,
+      body: JSON.stringify({ error: e.message }),
+    });
+  }
+};
+
+export const GetEntriesHandler: APIGatewayProxyHandler = async () => {
+  try {
+    const entries = await db.GetEntries();
+
+    console.log({ event: 'QUERY', count: entries.length });
+    return corsResponse({
+      statusCode: 200,
+      body: JSON.stringify(entries),
     });
   } catch (e) {
     handleError(e);

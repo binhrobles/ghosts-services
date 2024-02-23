@@ -3,11 +3,11 @@ import {
   DynamoDBDocumentClient,
   PutCommand,
   GetCommand,
+  ScanCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { mapCreateEntryToItem } from './database_client_mappings';
 import { Entry } from '../types.d';
 
-// TODO: move into CreateClient
 const TableName = process.env.IS_OFFLINE ? 'Entries' : process.env.DDB_TABLE;
 const config = process.env.IS_OFFLINE
   ? {
@@ -21,7 +21,7 @@ console.log(
   JSON.stringify({ event: 'Client created', table: TableName, config })
 );
 
-export async function CreateEntry(entry: Entry): Promise<void> {
+async function CreateEntry(entry: Entry): Promise<void> {
   const Item = mapCreateEntryToItem(entry);
 
   const result = await client.send(
@@ -33,16 +33,31 @@ export async function CreateEntry(entry: Entry): Promise<void> {
   console.log(JSON.stringify(result.ConsumedCapacity));
 }
 
-export async function GetEntry(namespace: string, id: string): Promise<Entry> {
+async function GetEntry(id: string): Promise<Entry> {
   const result = await client.send(
     new GetCommand({
       TableName,
       Key: {
         id,
-        namespace,
       },
     })
   );
   console.log(JSON.stringify(result.ConsumedCapacity));
   return result.Item as Entry;
 }
+
+async function GetEntries(): Promise<Entry[]> {
+  // TODO: this should be a query
+  const result = await client.send(
+    new ScanCommand({
+      TableName,
+    })
+  );
+  return Promise.resolve(result.Items as Entry[]);
+}
+
+export default {
+  CreateEntry,
+  GetEntry,
+  GetEntries,
+};

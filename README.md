@@ -49,4 +49,4 @@
 
 #### Post-Deploy Manual Steps
 
-- (optional) Associate API gateway endpoint /stage w/ custom domain
+- (optional) Associate API gateway endpoint /stage w/ custom domain (in APIG + DNS)

@@ -39,8 +39,7 @@ Resources:
               - Effect: 'Allow'
                 Action:
                   - 'dynamodb:Get*'
-                  - 'dynamodb:Delete*'
-                  - 'dynamodb:Update*'
                   - 'dynamodb:Put*'
+                  - 'dynamodb:Scan'
                 Resource:
-                  Fn::ImportValue: "EntriesTableArn-${opt:stage, self:provider.stage}"
+                  Fn::ImportValue: 'EntriesTableArn-${opt:stage, self:provider.stage}'
