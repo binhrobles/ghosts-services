@@ -9,6 +9,7 @@ env:
   STAGE: 'production' # because master
   REGION: 'us-east-1'
   TF_WORKING_DIR: 'infrastructure/production/'
+  NODE_VERSION: '16.x'
 
 jobs:
   test:
@@ -19,7 +20,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -92,7 +93,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
