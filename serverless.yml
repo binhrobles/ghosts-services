@@ -6,8 +6,8 @@ custom:
 
   # Configures throttling settings for all http endpoints
   apiGatewayThrottling:
-    maxRequestsPerSecond: 100
-    maxConcurrentRequests: 100
+    maxRequestsPerSecond: 5
+    maxConcurrentRequests: 5
 
   webpack:
     includeModules: true

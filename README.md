@@ -39,11 +39,7 @@
 
 #### Manual Steps
 
-- Domain registered and updated in `serverless.yml/custom/customDomain`
-  - forked this...who needs a custom backend endpoint
-- Certificate created in ACM
-- Custom domain created with: `sls create_domain`
-  - could've done this in terraform, but seems like serverless-custom-domain plugin expects some CFN outputs to be made available for the function deployments to work
+- (optional) Certificate created in ACM
 
 #### Handled by Deployment Pipeline
 
@@ -53,6 +49,4 @@
 
 #### Post-Deploy Manual Steps
 
-- In the `Serverless Domain Manager Summary` or in `API Gateway->Custom Domain Names->{your domain name}`, find the generated `Target Domain`
-- **FRAGILE**: In your domain config, point your domain to the `Target Domain`
-  - Target Domain will change if stack is torn down, but not during redeployments
+- (optional) Associate API gateway endpoint /stage w/ custom domain
