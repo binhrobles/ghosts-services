@@ -6,21 +6,11 @@ resource "aws_dynamodb_table" "entries_table" {
   read_capacity  = 1
   write_capacity = 1
 
-  stream_enabled = true
-  stream_view_type = "NEW_IMAGE"
-
   /* uses a service-generated ID for the partition key */
   hash_key  = "id"
 
   attribute {
     name = "id"
     type = "S"
-  }
-
-  /* TODO: GSI on long / lat query? on most recents? */
-
-  ttl {
-    attribute_name = "ttl"
-    enabled        = true
   }
 }

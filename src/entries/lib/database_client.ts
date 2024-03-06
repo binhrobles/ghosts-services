@@ -7,15 +7,10 @@ import {
 } from '@aws-sdk/lib-dynamodb';
 import { Entry } from '../types.d';
 
-const TableName = process.env.IS_OFFLINE ? 'Entries' : process.env.DDB_TABLE;
-const config = process.env.IS_OFFLINE
-  ? {
-      endpoint: 'http://localhost:4566',
-    }
-  : {};
+const TableName = process.env.DDB_TABLE || '';
 
 // Create a DynamoDB client
-const client = DynamoDBDocumentClient.from(new DynamoDBClient(config));
+const client = DynamoDBDocumentClient.from(new DynamoDBClient());
 
 async function CreateEntry(entry: Entry): Promise<void> {
   const result = await client.send(
