@@ -5,7 +5,6 @@ import {
   GetCommand,
   ScanCommand,
 } from '@aws-sdk/lib-dynamodb';
-import { mapCreateEntryToItem } from './database_client_mappings';
 import { Entry } from '../types.d';
 
 const TableName = process.env.IS_OFFLINE ? 'Entries' : process.env.DDB_TABLE;
@@ -17,17 +16,15 @@ const config = process.env.IS_OFFLINE
 
 // Create a DynamoDB client
 const client = DynamoDBDocumentClient.from(new DynamoDBClient(config));
-console.log(
-  JSON.stringify({ event: 'Client created', table: TableName, config })
-);
 
 async function CreateEntry(entry: Entry): Promise<void> {
-  const Item = mapCreateEntryToItem(entry);
-
   const result = await client.send(
     new PutCommand({
       TableName,
-      Item,
+      Item: {
+        ...entry,
+        createTime: Date.now(),
+      },
     })
   );
   console.log(JSON.stringify(result.ConsumedCapacity));

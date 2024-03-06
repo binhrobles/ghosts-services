@@ -3,10 +3,9 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "title": "CreateEntry",
-  "required": ["text", "description", "location", "ttl"],
+  "required": ["text", "location"],
   "properties": {
     "text": { "type": "string", "maxLength": 10000 },
-    "description": { "type": "string", "maxLength": 30 },
     "location": {
       "type": "object",
       "properties": {
@@ -14,6 +13,5 @@
         "lat": { "type": "number", "minimum": -90, "maximum": 90 }
       }
     },
-    "ttl": { "type": "number", "minimum": -1, "maximum": 31 }
   }
 }
