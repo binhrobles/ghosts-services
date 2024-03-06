@@ -14,14 +14,9 @@ custom:
     packager: 'yarn'
     webpackConfig: ./webpack.config.js
 
-  serverless-offline:
-    httpPort: 4000
-    useChildProcesses: true
-
 plugins:
   - serverless-webpack
   - serverless-api-gateway-throttling
-  - serverless-offline
 
 provider:
   name: aws

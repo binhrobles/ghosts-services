@@ -6,7 +6,6 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint '*/**/*.{js,ts}' --fix && terraform fmt -recursive infrastructure",
-    "start": "serverless offline",
     "package": "serverless package -s production",
     "deploy": "serverless deploy -s production",
     "provision": "cd infrastructure/local && terraform apply --auto-approve",
@@ -23,7 +22,6 @@
     "axios": "^0.21.1",
     "sanitize-html": "^1.27.0",
     "serverless-api-gateway-throttling": "^1.0.1",
-    "serverless-offline": "^6.4.0",
     "shortid": "^2.2.15",
     "source-map-support": "^0.5.10"
   },
