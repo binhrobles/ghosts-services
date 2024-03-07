@@ -5,6 +5,8 @@ CreateEntry:
   environment:
     DDB_TABLE:
       Fn::ImportValue: 'EntriesTableName-${opt:stage, self:provider.stage}'
+    BUCKET_NAME:
+      Fn::ImportValue: 'EntriesBucketName-${opt:stage, self:provider.stage}'
   events:
     - http:
         method: post
@@ -40,6 +42,8 @@ GetEntries:
   environment:
     DDB_TABLE:
       Fn::ImportValue: 'EntriesTableName-${opt:stage, self:provider.stage}'
+    BUCKET_NAME:
+      Fn::ImportValue: 'EntriesBucketName-${opt:stage, self:provider.stage}'
   events:
     - http:
         method: get

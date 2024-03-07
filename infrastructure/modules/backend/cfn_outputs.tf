@@ -27,7 +27,13 @@ resource "aws_cloudformation_stack" "cfn_outputs" {
             "Export": {
                 "Name": "EntriesTableArn-${var.env}"
             }
-        }
+        },
+        "EntriesBucketName": {
+            "Value": "${aws_s3_bucket.entries_bucket.id}",
+            "Export": {
+                "Name": "EntriesBucketName-${var.env}"
+            }
+        },
     }
 }
 STACK
