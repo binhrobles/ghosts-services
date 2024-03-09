@@ -10,7 +10,7 @@ import {
   GetCommand,
   ScanCommand,
 } from '@aws-sdk/lib-dynamodb';
-import { Entry, EntriesGeoJSON } from '../types.d';
+import { Entry, EntriesGeoJSON } from '../types';
 import { Readable } from 'stream';
 
 const TABLE_NAME = process.env.DDB_TABLE || '';
@@ -27,10 +27,7 @@ async function CreateEntry(entry: Entry): Promise<void> {
   await ddb.send(
     new PutCommand({
       TableName: TABLE_NAME,
-      Item: {
-        ...entry,
-        createTime: Date.now(),
-      },
+      Item: entry,
     })
   );
 
@@ -70,6 +67,7 @@ async function CreateEntry(entry: Entry): Promise<void> {
       ACL: 'public-read',
       ContentType: 'application/json',
       ContentLength: indexString.length,
+      CacheControl: 'no-cache',
     })
   );
 }

@@ -1,4 +1,4 @@
-interface Entry {
+export interface Entry {
   id: string;
   text: string;
   location: {
@@ -7,11 +7,7 @@ interface Entry {
   };
 }
 
-interface DBEntry extends Entry {
-  createTime: number;
-}
-
-interface EntryFeature {
+export interface EntryFeature {
   type: 'Feature';
   properties: {
     id: string;
@@ -22,7 +18,7 @@ interface EntryFeature {
   };
 }
 
-interface EntriesGeoJSON {
+export interface EntriesGeoJSON {
   type: string;
   features: EntryFeature[];
 }
