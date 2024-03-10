@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "entries_bucket" {
-  bucket = "br-ghosts-entries-${var.env}"
+  bucket = "ghosts-entries-${var.env}"
 }
 
 resource "aws_s3_bucket_ownership_controls" "entries_bucket_ownership" {

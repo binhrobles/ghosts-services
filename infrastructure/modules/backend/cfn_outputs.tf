@@ -33,7 +33,7 @@ resource "aws_cloudformation_stack" "cfn_outputs" {
             "Export": {
                 "Name": "EntriesBucketName-${var.env}"
             }
-        },
+        }
     }
 }
 STACK
