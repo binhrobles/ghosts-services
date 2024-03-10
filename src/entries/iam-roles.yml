@@ -36,8 +36,10 @@ Resources:
                 Action:
                   - 's3:GetObject'
                   - 's3:PutObject'
+                  - 's3:PutObjectAcl'
                 Resource:
-                  Fn::Join:
-                    - ''
-                    - - Fn::ImportValue: 'EntriesBucketArn-${opt:stage, self:provider.stage}'
-                      - '/*'
+                  - Fn::ImportValue: 'EntriesBucketArn-${opt:stage, self:provider.stage}'
+                  - Fn::Join:
+                      - ''
+                      - - Fn::ImportValue: 'EntriesBucketArn-${opt:stage, self:provider.stage}'
+                        - '/*'

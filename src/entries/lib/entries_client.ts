@@ -29,7 +29,6 @@ async function CreateEntry(entry: Entry): Promise<void> {
     })
   );
 
-  // save to S3
   await s3.send(
     new PutObjectCommand({
       Bucket: BUCKET_NAME,
@@ -39,6 +38,7 @@ async function CreateEntry(entry: Entry): Promise<void> {
       ContentType: 'plain/text',
       ContentLength: entry.text.length,
       Metadata: {
+        description: entry.description,
         location: JSON.stringify(entry.location),
       },
     })

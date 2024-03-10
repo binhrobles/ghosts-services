@@ -1,5 +1,6 @@
 export interface Entry {
   id: string;
+  description: string;
   text: string;
   location: {
     lat: number;
