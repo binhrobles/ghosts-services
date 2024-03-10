@@ -37,8 +37,6 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
   try {
     const { namespace, id } = event.pathParameters;
 
-    // TODO: validate that the caller has permissions to access this namespace
-
     const item = await client.GetEntry(id);
 
     if (!item) {
@@ -53,24 +51,6 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
     return corsResponse({
       statusCode: 200,
       body: JSON.stringify({ ...item }),
-    });
-  } catch (e) {
-    handleError(e);
-    return corsResponse({
-      statusCode: 500,
-      body: JSON.stringify({ error: e.message }),
-    });
-  }
-};
-
-export const GetEntriesHandler: APIGatewayProxyHandler = async () => {
-  try {
-    const entries = await client.GetEntries();
-
-    console.log({ event: 'QUERY', count: entries.length });
-    return corsResponse({
-      statusCode: 200,
-      body: JSON.stringify(entries),
     });
   } catch (e) {
     handleError(e);

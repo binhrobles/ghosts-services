@@ -8,7 +8,6 @@ import {
   DynamoDBDocumentClient,
   PutCommand,
   GetCommand,
-  ScanCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { Entry, EntriesGeoJSON } from '../types';
 import { Readable } from 'stream';
@@ -99,18 +98,7 @@ async function GetEntry(id: string): Promise<Entry> {
   return result.Item as Entry;
 }
 
-async function GetEntries(): Promise<Entry[]> {
-  // TODO: this should be a query
-  const result = await ddb.send(
-    new ScanCommand({
-      TableName: TABLE_NAME,
-    })
-  );
-  return Promise.resolve(result.Items as Entry[]);
-}
-
 export default {
   CreateEntry,
   GetEntry,
-  GetEntries,
 };
