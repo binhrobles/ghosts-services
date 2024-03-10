@@ -21,13 +21,27 @@ const INDEX_FILENAME = 'index.geojson';
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient());
 const s3 = new S3Client();
 
+// save to ddb
 async function CreateEntry(entry: Entry): Promise<void> {
-  // save to ddb
-  // TODO: save to S3 ?
   await ddb.send(
     new PutCommand({
       TableName: TABLE_NAME,
       Item: entry,
+    })
+  );
+
+  // save to S3
+  await s3.send(
+    new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: entry.id,
+      Body: Readable.from(entry.text),
+      ACL: 'public-read',
+      ContentType: 'plain/text',
+      ContentLength: entry.text.length,
+      Metadata: {
+        location: JSON.stringify(entry.location),
+      },
     })
   );
 
