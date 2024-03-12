@@ -6,6 +6,11 @@ import { sanitizeText } from './lib/sanitize';
 import handleError from '../common/handleError';
 import corsResponse from '../common/response';
 
+export const RefreshIndex = async () => {
+  await client.RefreshIndex();
+  console.log(JSON.stringify({ event: 'REFRESH_COMPLETE' }));
+};
+
 export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
   try {
     const { namespace } = event.pathParameters;

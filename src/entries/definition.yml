@@ -35,3 +35,12 @@ GetEntry:
             paths:
               namespace: true
               id: true
+
+RefreshIndex:
+  handler: src/entries/handler.RefreshIndex
+  role: EntriesLambdaRole
+  environment:
+    DDB_TABLE:
+      Fn::ImportValue: 'EntriesTableName-${opt:stage, self:provider.stage}'
+    BUCKET_NAME:
+      Fn::ImportValue: 'EntriesBucketName-${opt:stage, self:provider.stage}'

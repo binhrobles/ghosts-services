@@ -8,8 +8,9 @@ import {
   DynamoDBDocumentClient,
   PutCommand,
   GetCommand,
+  ScanCommand,
 } from '@aws-sdk/lib-dynamodb';
-import { Entry, EntriesGeoJSON } from '../types';
+import { Entry, EntriesGeoJSON, EntryFeature } from '../types';
 import { Readable } from 'stream';
 
 const TABLE_NAME = process.env.DDB_TABLE || '';
@@ -20,27 +21,42 @@ const INDEX_FILENAME = 'index.geojson';
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient());
 const s3 = new S3Client();
 
+function entryFeatureFromEntry(entry: Entry): EntryFeature {
+  return {
+    type: 'Feature',
+    properties: {
+      id: entry.id,
+    },
+    geometry: {
+      type: 'Point',
+      coordinates: [entry.location.lng, entry.location.lat],
+    },
+  };
+}
+
+async function putIndex(index: EntriesGeoJSON) {
+  const indexString = JSON.stringify(index);
+  const stream = Readable.from(indexString);
+
+  await s3.send(
+    new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: INDEX_FILENAME,
+      Body: stream,
+      ACL: 'public-read',
+      ContentType: 'application/json',
+      ContentLength: indexString.length,
+      CacheControl: 'no-cache',
+    })
+  );
+}
+
 // save to ddb
 async function CreateEntry(entry: Entry): Promise<void> {
   await ddb.send(
     new PutCommand({
       TableName: TABLE_NAME,
       Item: entry,
-    })
-  );
-
-  await s3.send(
-    new PutObjectCommand({
-      Bucket: BUCKET_NAME,
-      Key: entry.id,
-      Body: Readable.from(entry.text),
-      ACL: 'public-read',
-      ContentType: 'plain/text',
-      ContentLength: entry.text.length,
-      Metadata: {
-        description: entry.description,
-        location: JSON.stringify(entry.location),
-      },
     })
   );
 
@@ -59,30 +75,9 @@ async function CreateEntry(entry: Entry): Promise<void> {
   const entriesIndex: EntriesGeoJSON = JSON.parse(
     await Body.transformToString()
   );
-  entriesIndex.features.push({
-    type: 'Feature',
-    properties: {
-      id: entry.id,
-    },
-    geometry: {
-      type: 'Point',
-      coordinates: [entry.location.lng, entry.location.lat],
-    },
-  });
-  const indexString = JSON.stringify(entriesIndex);
-  const stream = Readable.from(indexString);
+  entriesIndex.features.push(entryFeatureFromEntry(entry));
 
-  await s3.send(
-    new PutObjectCommand({
-      Bucket: BUCKET_NAME,
-      Key: INDEX_FILENAME,
-      Body: stream,
-      ACL: 'public-read',
-      ContentType: 'application/json',
-      ContentLength: indexString.length,
-      CacheControl: 'no-cache',
-    })
-  );
+  await putIndex(entriesIndex);
 }
 
 async function GetEntry(id: string): Promise<Entry> {
@@ -98,7 +93,28 @@ async function GetEntry(id: string): Promise<Entry> {
   return result.Item as Entry;
 }
 
+async function RefreshIndex() {
+  const result = await ddb.send(
+    new ScanCommand({
+      TableName: TABLE_NAME,
+      ProjectionExpression: 'id, #l',
+      ExpressionAttributeNames: {
+        '#l': 'location',
+      },
+    })
+  );
+  const entries = result.Items as Entry[];
+
+  const index: EntriesGeoJSON = {
+    type: 'FeatureCollection',
+    features: entries.map(entryFeatureFromEntry),
+  };
+
+  await putIndex(index);
+}
+
 export default {
   CreateEntry,
   GetEntry,
+  RefreshIndex,
 };

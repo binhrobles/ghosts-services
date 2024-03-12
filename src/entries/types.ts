@@ -20,6 +20,6 @@ export interface EntryFeature {
 }
 
 export interface EntriesGeoJSON {
-  type: string;
+  type: 'FeatureCollection';
   features: EntryFeature[];
 }
