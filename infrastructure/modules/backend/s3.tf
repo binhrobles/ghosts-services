@@ -1,11 +1,19 @@
 resource "aws_s3_bucket" "entries_bucket" {
-  bucket = "br-ghosts-entries-${var.env}"
+  bucket = "ghosts-entries-${var.env}"
 }
 
 resource "aws_s3_bucket_ownership_controls" "entries_bucket_ownership" {
   bucket = aws_s3_bucket.entries_bucket.id
   rule {
     object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_cors_configuration" "entries_bucket_cors" {
+  bucket = aws_s3_bucket.entries_bucket.id
+  cors_rule {
+    allowed_methods = ["GET"]
+    allowed_origins = ["*"]
   }
 }
 

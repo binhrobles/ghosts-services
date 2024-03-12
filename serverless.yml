@@ -39,4 +39,4 @@ functions:
   - ${file(./src/entries/definition.yml)}
 
 resources:
-  - ${file(./resources/iam-roles.yml)}
+  - ${file(./src/entries/iam-roles.yml)}

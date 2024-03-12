@@ -5,6 +5,8 @@ CreateEntry:
   environment:
     DDB_TABLE:
       Fn::ImportValue: 'EntriesTableName-${opt:stage, self:provider.stage}'
+    BUCKET_NAME:
+      Fn::ImportValue: 'EntriesBucketName-${opt:stage, self:provider.stage}'
   events:
     - http:
         method: post
@@ -34,14 +36,11 @@ GetEntry:
               namespace: true
               id: true
 
-GetEntries:
-  handler: src/entries/handler.GetEntriesHandler
+RefreshIndex:
+  handler: src/entries/handler.RefreshIndex
   role: EntriesLambdaRole
   environment:
     DDB_TABLE:
       Fn::ImportValue: 'EntriesTableName-${opt:stage, self:provider.stage}'
-  events:
-    - http:
-        method: get
-        path: namespace/{namespace}/entries
-        cors: true
+    BUCKET_NAME:
+      Fn::ImportValue: 'EntriesBucketName-${opt:stage, self:provider.stage}'

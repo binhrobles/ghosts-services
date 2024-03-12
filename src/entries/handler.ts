@@ -1,10 +1,15 @@
 import 'source-map-support/register';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import shortid from 'shortid';
-import db from './lib/database_client';
+import client from './lib/entries_client';
 import { sanitizeText } from './lib/sanitize';
 import handleError from '../common/handleError';
 import corsResponse from '../common/response';
+
+export const RefreshIndex = async () => {
+  await client.RefreshIndex();
+  console.log(JSON.stringify({ event: 'REFRESH_COMPLETE' }));
+};
 
 export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
   try {
@@ -12,7 +17,7 @@ export const CreateEntryHandler: APIGatewayProxyHandler = async (event) => {
     const entry = JSON.parse(event.body);
     const id = shortid.generate();
 
-    await db.CreateEntry({
+    await client.CreateEntry({
       ...entry,
       id,
       namespace,
@@ -37,9 +42,7 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
   try {
     const { namespace, id } = event.pathParameters;
 
-    // TODO: validate that the caller has permissions to access this namespace
-
-    const item = await db.GetEntry(id);
+    const item = await client.GetEntry(id);
 
     if (!item) {
       console.error(JSON.stringify({ event: 'MISS', namespace, id }));
@@ -53,24 +56,6 @@ export const GetEntryHandler: APIGatewayProxyHandler = async (event) => {
     return corsResponse({
       statusCode: 200,
       body: JSON.stringify({ ...item }),
-    });
-  } catch (e) {
-    handleError(e);
-    return corsResponse({
-      statusCode: 500,
-      body: JSON.stringify({ error: e.message }),
-    });
-  }
-};
-
-export const GetEntriesHandler: APIGatewayProxyHandler = async () => {
-  try {
-    const entries = await db.GetEntries();
-
-    console.log({ event: 'QUERY', count: entries.length });
-    return corsResponse({
-      statusCode: 200,
-      body: JSON.stringify(entries),
     });
   } catch (e) {
     handleError(e);
